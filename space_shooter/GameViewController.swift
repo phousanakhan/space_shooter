@@ -1,8 +1,8 @@
 //
 //  GameViewController.swift
-//  space_shooter
+//  Space Shoot
 //
-//  Created by Phousanak Han on 17/06/20.
+//  Created by Phousanak Han on 08/05/20.
 //  Copyright © 2020 Phousanak Han. All rights reserved.
 //
 
@@ -17,13 +17,13 @@ class GameViewController: UIViewController {
         
         if let view = self.view as! SKView? {
             // Load the SKScene from 'GameScene.sks'
-            if let scene = SKScene(fileNamed: "GameScene") {
+            let scene = GameScene(size: CGSize(width: 1536, height: 2048))
                 // Set the scale mode to scale to fit the window
                 scene.scaleMode = .aspectFill
                 
                 // Present the scene
                 view.presentScene(scene)
-            }
+            
             
             view.ignoresSiblingOrder = true
             
