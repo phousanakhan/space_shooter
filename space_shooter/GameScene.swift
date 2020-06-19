@@ -13,7 +13,7 @@ import GameplayKit
 var gameScore = 0
 class GameScene: SKScene, SKPhysicsContactDelegate {
     let player = SKSpriteNode(imageNamed: "playerShip")
-    let bulletSound = SKAction.playSoundFileNamed("gun_effect.mp3", waitForCompletion: false)
+    let bulletSound = SKAction.playSoundFileNamed("gun_effect.wav", waitForCompletion: false)
     
 
     let scoreLabel = SKLabelNode(fontNamed: "The Bold Font")
@@ -22,12 +22,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var LivesNumb = 3
     let LivesLabel = SKLabelNode(fontNamed: "The Bold Font")
     
+    let tapLabel = SKLabelNode(fontNamed: "The Bold Font")
+    
     enum gameState {
         case preGame //before game
         case inGame //during game
         case afterGame //after game
     }
-    var current_state = gameState.inGame
+    var current_state = gameState.preGame
     
     
     struct PhysicsCategories{
@@ -39,9 +41,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
     //globally declared game area as a rectangle
     let gameArea: CGRect
-    var mv_ground1 = SKSpriteNode()
-    var mv_ground2 = SKSpriteNode()
-    var mv_ground3 = SKSpriteNode()
     
     func random() -> CGFloat {
         return CGFloat(Float(arc4random()) / 0xFFFFFFFF)
@@ -50,7 +49,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         return random() * (max - min) + min
     }
     
-    var parallax = SKAction()
     override init(size: CGSize) {
         
         let MaxAspectRatio: CGFloat = 16.0/9.0
@@ -67,50 +65,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         gameScore = 0
         self.physicsWorld.contactDelegate = self
         
-        mv_ground1 = SKSpriteNode(imageNamed: "back1")
-       // mv_ground1.position = CGPoint(x: 0, y: 0)
-        mv_ground1.position = CGPoint(x: self.frame.size.width/2, y: self.frame.size.height/2)
-        mv_ground1.zPosition = 1
-        //mv_ground1.size = CGSize(width: self.frame.size.width, height: 0)
-        mv_ground1.size = self.size
-    
-        mv_ground2 = SKSpriteNode(imageNamed: "back1")
-        mv_ground2.position = CGPoint(x: self.frame.size.width/2, y: self.frame.size.height + mv_ground1.position.y)
-        //mv_ground2.position = CGPoint(x: 0, y: self.frame.size.height)
-        mv_ground2.zPosition = 1
-        //mv_ground2.size = CGSize(width: self.frame.size.width, height: 0)
-        mv_ground2.size = self.size
-        
-        mv_ground3 = SKSpriteNode(imageNamed: "back2")
-        mv_ground3.position = CGPoint(x: self.frame.size.width/2, y: self.frame.size.height + mv_ground2.position.y)
-        //mv_ground3.position = CGPoint(x: 0, y: self.frame.size.height + mv_ground2.position.y)
-        mv_ground3.zPosition = -99
-        //mv_ground3.size = CGSize(width: self.frame.size.width, height: 0)
-        mv_ground3.size = self.size
-        
-        self.addChild(mv_ground1)
-        self.addChild(mv_ground2)
-        self.addChild(mv_ground3)
-        
-        parallax = SKAction.repeatForever(SKAction.move(by: CGVector(dx: 0, dy: -self.frame.size.height-0.5), duration: 4))
-        mv_ground1.run(parallax)
-        mv_ground2.run(parallax)
-        mv_ground3.run(parallax)
-        /*  STATIC BACKGROUND
-        let background = SKSpriteNode(imageNamed: "back")
-        //take the background size = same size as the current scene
-        background.size = self.size
-        //to get center point
-        background.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
-        background.zPosition = 0
-        //take info above and make background
-        self.addChild(background)
-        */
+        for i in 0...1{
+            let background = SKSpriteNode(imageNamed: "back1")
+            //take the background size = same size as the current scene
+            background.size = self.size
+            background.anchorPoint = CGPoint(x: 0.5, y: 0)
+            //to get center point
+            background.position = CGPoint(x: self.size.width/2, y: self.size.height*CGFloat(i))
+            background.zPosition = 0
+            background.name = "Background"
+            //take info above and make background
+            self.addChild(background)
+        }
         
         //Set the scale of the image; eg 1 is 1:1 scale
         player.setScale(0.8)
         //height * 0.2 because we want to start 20% from the bottom of the device
-        player.position = CGPoint(x: self.size.width/2, y: self.size.height * 0.2)
+        player.position = CGPoint(x: self.size.width/2, y: 0 - player.size.height)
         //As long as greater than 0, will be above background
         player.zPosition = 3
         player.physicsBody = SKPhysicsBody(rectangleOf: player.size)
@@ -125,7 +96,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         scoreLabel.fontSize = 50
         scoreLabel.fontColor = SKColor.white
         scoreLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
-        scoreLabel.position = CGPoint(x: self.size.width*0.20, y: self.size.height*0.9)
+        scoreLabel.position = CGPoint(x: self.size.width*0.20, y: self.size.height + scoreLabel.frame.size.height)
         scoreLabel.zPosition = 100
         self.addChild(scoreLabel)
         
@@ -133,11 +104,37 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         LivesLabel.fontSize = 50
         LivesLabel.fontColor = SKColor.white
         LivesLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.right
-        LivesLabel.position = CGPoint(x: self.size.width*0.80, y: self.size.height*0.9)
+        LivesLabel.position = CGPoint(x: self.size.width*0.80, y: self.size.height + scoreLabel.frame.size.height)
         LivesLabel.zPosition = 100
         self.addChild(LivesLabel)
         
-        StartNewLevel()
+        let moveOnToScreen = SKAction.moveTo(y: self.size.height*0.9, duration: 0.3)
+        scoreLabel.run(moveOnToScreen)
+        LivesLabel.run(moveOnToScreen)
+        
+        tapLabel.text = "TAP TO BEGIN"
+        tapLabel.fontSize = 60
+        tapLabel.fontColor = SKColor.white
+        tapLabel.zPosition = 1
+        tapLabel.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
+        tapLabel.alpha = 0 //alpha = 0 -> see through
+        self.addChild(tapLabel)
+        
+        let fadeIn = SKAction.fadeIn(withDuration: 0.2)
+        tapLabel.run(fadeIn)
+    }
+    
+    func startGame() {
+        current_state = gameState.inGame
+        let fadeOutAction = SKAction.fadeOut(withDuration: 0.3)
+        let deleteAction = SKAction.removeFromParent()
+        let deleteSequence = SKAction.sequence([fadeOutAction, deleteAction])
+        tapLabel.run(deleteSequence)
+        
+        let MoveShipToScreen = SKAction.moveTo(y: self.size.height*0.2, duration: 0.5)
+        let startLevelAction = SKAction.run(StartNewLevel)
+        let startGameSequence = SKAction.sequence([MoveShipToScreen, startLevelAction])
+        player.run(startGameSequence)
     }
     
     func loseAlife(){
@@ -163,14 +160,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func GameOver () {
-        /*self.enumerateChildNodes(withName: "ref_bullet") {
-            (bullet, stop) in
-            bullet.removeAllActions()
-        }
-        self.enumerateChildNodes(withName: "ref_enemy"){
-            (enemy, stop) in
-            enemy.removeAllActions()
-        }*/
         current_state = gameState.afterGame
         self.removeAllActions()
         
@@ -237,6 +226,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func spawnExplosion(spawnPosition: CGPoint) {
         let explosion = SKSpriteNode(imageNamed: "explosion")
+        let explosion_sound = SKAction.playSoundFileNamed("explode_effect.wav", waitForCompletion: false)
         explosion.position = spawnPosition
         explosion.zPosition = 3
         explosion.setScale(0)
@@ -246,7 +236,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let fadeOut = SKAction.fadeIn(withDuration: 0.1)
         let delete = SKAction.removeFromParent()
         
-        let explosionSequence = SKAction.sequence([scaleIn, fadeOut, delete])
+        let explosionSequence = SKAction.sequence([explosion_sound, scaleIn, fadeOut, delete])
         
         explosion.run(explosionSequence)
     }
@@ -278,17 +268,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.run(infiniteSpawn, withKey: "spawningEnemies")
     }
     
+    var LastUpdateTime: TimeInterval = 0
+    var deltaFrame: TimeInterval = 0
+    let amountMovePerSec: CGFloat = 600.0
     override func update(_ currentTime: TimeInterval) {
+        if LastUpdateTime == 0{
+            LastUpdateTime = currentTime
+        }
+        else{
+            deltaFrame = currentTime - LastUpdateTime
+            LastUpdateTime = currentTime
+        }
         
-        if mv_ground1.position.y <= -self.frame.size.height {
-            mv_ground1.position.y = self.frame.size.height * 1.5
+        let amountToMoveBackground = amountMovePerSec * CGFloat(deltaFrame)
+        self.enumerateChildNodes(withName: "Background") {
+            (background, stop) in
+            background.position.y -= amountToMoveBackground
+            
+            if background.position.y < -self.size.height{
+                background.position.y += self.size.height * 2
+            }
         }
-        if mv_ground2.position.y <= -self.frame.size.height {
-            mv_ground2.position.y = self.frame.size.height * 1.5
-        }
-        if mv_ground3.position.y <= -self.frame.size.height {
-            mv_ground3.position.y = self.frame.size.height * 1.5
-        }
+        
     }
     
     
@@ -351,10 +352,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if current_state == gameState.inGame{
-        fireBullet()
+        if current_state == gameState.preGame {
+            startGame()
         }
-        //Spawn_Enemy()
+        
+        else if current_state == gameState.inGame{
+            fireBullet()
+        }
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {

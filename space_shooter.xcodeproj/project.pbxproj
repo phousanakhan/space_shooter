@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		D3113C37249C1315004DBE76 /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3113C36249C1315004DBE76 /* GameOverScene.swift */; };
+		D31C3A97249D550B0028A170 /* gun_effect.wav in Resources */ = {isa = PBXBuildFile; fileRef = D31C3A96249D550B0028A170 /* gun_effect.wav */; };
+		D31C3A99249D556C0028A170 /* explode_effect.wav in Resources */ = {isa = PBXBuildFile; fileRef = D31C3A98249D556C0028A170 /* explode_effect.wav */; };
 		D329488A249B268800C749AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3294889249B268800C749AF /* AppDelegate.swift */; };
 		D329488C249B268800C749AF /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D329488B249B268800C749AF /* GameScene.sks */; };
 		D329488E249B268800C749AF /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = D329488D249B268800C749AF /* Actions.sks */; };
@@ -19,7 +21,6 @@
 		D32948A5249B268D00C749AF /* space_shooterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32948A4249B268D00C749AF /* space_shooterTests.swift */; };
 		D32948B0249B268D00C749AF /* space_shooterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32948AF249B268D00C749AF /* space_shooterUITests.swift */; };
 		D32948BE249B292400C749AF /* theBoldFont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D32948BD249B292400C749AF /* theBoldFont.ttf */; };
-		D32948C0249B296700C749AF /* gun_effect.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D32948BF249B296700C749AF /* gun_effect.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +42,8 @@
 
 /* Begin PBXFileReference section */
 		D3113C36249C1315004DBE76 /* GameOverScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
+		D31C3A96249D550B0028A170 /* gun_effect.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = gun_effect.wav; sourceTree = "<group>"; };
+		D31C3A98249D556C0028A170 /* explode_effect.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = explode_effect.wav; sourceTree = "<group>"; };
 		D3294886249B268800C749AF /* space_shooter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = space_shooter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3294889249B268800C749AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D329488B249B268800C749AF /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -58,7 +61,6 @@
 		D32948AF249B268D00C749AF /* space_shooterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = space_shooterUITests.swift; sourceTree = "<group>"; };
 		D32948B1249B268D00C749AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D32948BD249B292400C749AF /* theBoldFont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = theBoldFont.ttf; sourceTree = "<group>"; };
-		D32948BF249B296700C749AF /* gun_effect.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = gun_effect.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,7 +118,8 @@
 				D3113C36249C1315004DBE76 /* GameOverScene.swift */,
 				D3294891249B268800C749AF /* GameViewController.swift */,
 				D3294893249B268800C749AF /* Main.storyboard */,
-				D32948BF249B296700C749AF /* gun_effect.mp3 */,
+				D31C3A98249D556C0028A170 /* explode_effect.wav */,
+				D31C3A96249D550B0028A170 /* gun_effect.wav */,
 				D3294896249B268C00C749AF /* Assets.xcassets */,
 				D3294898249B268C00C749AF /* LaunchScreen.storyboard */,
 				D329489B249B268C00C749AF /* Info.plist */,
@@ -250,10 +253,11 @@
 				D3294895249B268800C749AF /* Main.storyboard in Resources */,
 				D329488C249B268800C749AF /* GameScene.sks in Resources */,
 				D32948BE249B292400C749AF /* theBoldFont.ttf in Resources */,
+				D31C3A99249D556C0028A170 /* explode_effect.wav in Resources */,
 				D3294897249B268C00C749AF /* Assets.xcassets in Resources */,
 				D329489A249B268C00C749AF /* LaunchScreen.storyboard in Resources */,
+				D31C3A97249D550B0028A170 /* gun_effect.wav in Resources */,
 				D329488E249B268800C749AF /* Actions.sks in Resources */,
-				D32948C0249B296700C749AF /* gun_effect.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
