@@ -154,7 +154,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func addScore(){
         gameScore += 1
         scoreLabel.text = "Score: \(gameScore)"
-        if gameScore == 10 || gameScore == 25 || gameScore == 50 {
+        if gameScore == 5 || gameScore == 10 || gameScore == 15 || gameScore == 20 || gameScore == 25 {
             StartNewLevel()
         }
     }
@@ -253,11 +253,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         switch levelNumb {
         case 1: levelDuration = 1.2
-        case 2: levelDuration = 1.0
-        case 3: levelDuration = 0.8
-        case 4: levelDuration = 0.6
+        case 2: levelDuration = 1
+        case 3: levelDuration = 0.9
+        case 4: levelDuration = 0.8
+        case 5: levelDuration = 0.5
+        case 6: levelDuration = 0.4
+        case 7: levelDuration = 0.3
         default:
-            levelDuration = 1.2
+            levelDuration = 0.3
             
         }
         
@@ -270,7 +273,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var LastUpdateTime: TimeInterval = 0
     var deltaFrame: TimeInterval = 0
-    let amountMovePerSec: CGFloat = 600.0
+    var amountMovePerSec: CGFloat = 700.0
+    
     override func update(_ currentTime: TimeInterval) {
         if LastUpdateTime == 0{
             LastUpdateTime = currentTime
@@ -278,6 +282,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         else{
             deltaFrame = currentTime - LastUpdateTime
             LastUpdateTime = currentTime
+        }
+        if levelNumb == 1 || levelNumb == 0 {
+            amountMovePerSec = 700.0
+        }
+        else if levelNumb == 2 {
+            amountMovePerSec = 800.0
+        }
+        else if levelNumb == 3 {
+            amountMovePerSec = 1000.0
+        }
+        else {
+            amountMovePerSec = 1200.0
         }
         
         let amountToMoveBackground = amountMovePerSec * CGFloat(deltaFrame)
@@ -291,8 +307,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
     }
-    
-    
     
     func fireBullet() {
         let bullet = SKSpriteNode(imageNamed: "bullet")
