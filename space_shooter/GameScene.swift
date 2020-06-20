@@ -23,6 +23,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let LivesLabel = SKLabelNode(fontNamed: "The Bold Font")
     
     let tapLabel = SKLabelNode(fontNamed: "The Bold Font")
+    let gameTitleLabel = SKLabelNode(fontNamed: "The Bold Font")
     
     enum gameState {
         case preGame //before game
@@ -120,8 +121,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         tapLabel.alpha = 0 //alpha = 0 -> see through
         self.addChild(tapLabel)
         
+        gameTitleLabel.text = "Space Shooter"
+        gameTitleLabel.fontSize = 100
+        gameTitleLabel.fontColor = SKColor.white
+        gameTitleLabel.position = CGPoint(x: self.size.width*0.5, y: self.size.height*0.75)
+        gameTitleLabel.alpha = 0
+        gameTitleLabel.zPosition = 1
+        self.addChild(gameTitleLabel)
+        
         let fadeIn = SKAction.fadeIn(withDuration: 0.2)
         tapLabel.run(fadeIn)
+        gameTitleLabel.run(fadeIn)
     }
     
     func startGame() {
@@ -130,6 +140,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let deleteAction = SKAction.removeFromParent()
         let deleteSequence = SKAction.sequence([fadeOutAction, deleteAction])
         tapLabel.run(deleteSequence)
+        gameTitleLabel.run(deleteSequence)
         
         let MoveShipToScreen = SKAction.moveTo(y: self.size.height*0.2, duration: 0.5)
         let startLevelAction = SKAction.run(StartNewLevel)
@@ -164,7 +175,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.removeAllActions()
         
         let changeSceneAction = SKAction.run(changeScene)
-        let waitChangeScene = SKAction.wait(forDuration: 0.5)
+        let waitChangeScene = SKAction.wait(forDuration: 0.2)
         let changeSequence = SKAction.sequence([waitChangeScene, changeSceneAction])
         //let changeSequence = SKAction.sequence([changeSceneAction])
         self.run(changeSequence)
@@ -175,7 +186,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func changeScene() {
         let moveTo = GameOverScene(size: self.size) //new scene
         moveTo.scaleMode = self.scaleMode
-        let mv_transition = SKTransition.fade(withDuration: 1)
+        let mv_transition = SKTransition.fade(withDuration: 0.5)
         self.view!.presentScene(moveTo, transition: mv_transition) //take currrent view -> remove current view -> present moveTo
     }
     

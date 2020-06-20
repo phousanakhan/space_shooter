@@ -21,6 +21,8 @@
 		D32948A5249B268D00C749AF /* space_shooterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32948A4249B268D00C749AF /* space_shooterTests.swift */; };
 		D32948B0249B268D00C749AF /* space_shooterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D32948AF249B268D00C749AF /* space_shooterUITests.swift */; };
 		D32948BE249B292400C749AF /* theBoldFont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D32948BD249B292400C749AF /* theBoldFont.ttf */; };
+		D3AEFFAF249E8DFC004112F0 /* MainMenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AEFFAE249E8DFC004112F0 /* MainMenuScene.swift */; };
+		D3AEFFB1249E9434004112F0 /* back_sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D3AEFFB0249E9434004112F0 /* back_sound.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +63,8 @@
 		D32948AF249B268D00C749AF /* space_shooterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = space_shooterUITests.swift; sourceTree = "<group>"; };
 		D32948B1249B268D00C749AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D32948BD249B292400C749AF /* theBoldFont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = theBoldFont.ttf; sourceTree = "<group>"; };
+		D3AEFFAE249E8DFC004112F0 /* MainMenuScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuScene.swift; sourceTree = "<group>"; };
+		D3AEFFB0249E9434004112F0 /* back_sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = back_sound.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +120,8 @@
 				D329488D249B268800C749AF /* Actions.sks */,
 				D329488F249B268800C749AF /* GameScene.swift */,
 				D3113C36249C1315004DBE76 /* GameOverScene.swift */,
+				D3AEFFB0249E9434004112F0 /* back_sound.mp3 */,
+				D3AEFFAE249E8DFC004112F0 /* MainMenuScene.swift */,
 				D3294891249B268800C749AF /* GameViewController.swift */,
 				D3294893249B268800C749AF /* Main.storyboard */,
 				D31C3A98249D556C0028A170 /* explode_effect.wav */,
@@ -256,6 +262,7 @@
 				D31C3A99249D556C0028A170 /* explode_effect.wav in Resources */,
 				D3294897249B268C00C749AF /* Assets.xcassets in Resources */,
 				D329489A249B268C00C749AF /* LaunchScreen.storyboard in Resources */,
+				D3AEFFB1249E9434004112F0 /* back_sound.mp3 in Resources */,
 				D31C3A97249D550B0028A170 /* gun_effect.wav in Resources */,
 				D329488E249B268800C749AF /* Actions.sks in Resources */,
 			);
@@ -282,6 +289,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3AEFFAF249E8DFC004112F0 /* MainMenuScene.swift in Sources */,
 				D3294890249B268800C749AF /* GameScene.swift in Sources */,
 				D3294892249B268800C749AF /* GameViewController.swift in Sources */,
 				D3113C37249C1315004DBE76 /* GameOverScene.swift in Sources */,
@@ -459,6 +467,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = FATGU78FH2;
 				INFOPLIST_FILE = space_shooter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -476,6 +485,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = FATGU78FH2;
 				INFOPLIST_FILE = space_shooter/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

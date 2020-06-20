@@ -16,10 +16,22 @@ class GameOverScene: SKScene{
 
     override func didMove(to view: SKView) {
         
-        let background = SKSpriteNode(imageNamed: "back1")
+        /*let background = SKSpriteNode(imageNamed: "back1")
         background.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
         background.zPosition = 0
-        self.addChild(background)
+        self.addChild(background)*/
+        for i in 0...1{
+            let background = SKSpriteNode(imageNamed: "back1")
+            //take the background size = same size as the current scene
+            background.size = self.size
+            background.anchorPoint = CGPoint(x: 0.5, y: 0)
+            //to get center point
+            background.position = CGPoint(x: self.size.width/2, y: self.size.height*CGFloat(i))
+            background.zPosition = 0
+            background.name = "Background"
+            //take info above and make background
+            self.addChild(background)
+        }
 
         let gameOverLabel = SKLabelNode(fontNamed: "The Bold Font")
         gameOverLabel.text = "GAME OVER"
@@ -75,5 +87,30 @@ class GameOverScene: SKScene{
             }
             
         }
+    }
+    
+    var LastUpdateTime: TimeInterval = 0
+    var deltaFrame: TimeInterval = 0
+    var amountMovePerSec: CGFloat = 700.0
+    
+    override func update(_ currentTime: TimeInterval) {
+        if LastUpdateTime == 0{
+            LastUpdateTime = currentTime
+        }
+        else{
+            deltaFrame = currentTime - LastUpdateTime
+            LastUpdateTime = currentTime
+        }
+        
+        let amountToMoveBackground = amountMovePerSec * CGFloat(deltaFrame)
+        self.enumerateChildNodes(withName: "Background") {
+            (background, stop) in
+            background.position.y -= amountToMoveBackground
+            
+            if background.position.y < -self.size.height{
+                background.position.y += self.size.height * 2
+            }
+        }
+        
     }
 }
